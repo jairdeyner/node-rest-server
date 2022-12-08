@@ -14,7 +14,13 @@ import {
   emailExiste,
   existeUsuarioPorId,
 } from '../helpers/db-validators.js';
-import { validarCampos } from '../middlewares/validar-campos.js';
+
+import {
+  validarCampos,
+  validarJWT,
+  esAdminRole,
+  tieneRole,
+} from '../middlewares/index.js';
 
 const router = Router();
 
@@ -52,6 +58,9 @@ router.patch('/', usuariosPatch);
 router.delete(
   '/:id',
   [
+    validarJWT,
+    // esAdminRole,
+    tieneRole('ADMIN_ROLE', 'VENTAS_ROLE'),
     check('id', 'No es un ID válido').isMongoId(),
     check('id').custom(existeUsuarioPorId),
     validarCampos,
