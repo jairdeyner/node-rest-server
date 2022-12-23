@@ -3,7 +3,7 @@ import { check } from 'express-validator';
 
 import { validarCampos } from '../middlewares/validar-campos.js';
 
-import { login } from '../controllers/auth.controller.js';
+import { googleSingIn, login } from '../controllers/auth.controller.js';
 
 const router = Router();
 
@@ -15,6 +15,12 @@ router.post(
     validarCampos,
   ],
   login
+);
+
+router.post(
+  '/google',
+  [check('id_token', 'id_token es necesario').not().isEmpty(), validarCampos],
+  googleSingIn
 );
 
 export default router;
