@@ -6,6 +6,7 @@ import { dbConnection } from '../db/config.db.js';
 import userRoutes from '../routes/usuarios.route.js';
 import authRoutes from '../routes/auth.route.js';
 import categoryRoutes from '../routes/categorias.route.js';
+import productRoutes from '../routes/productos.route.js';
 
 export class Server {
   constructor() {
@@ -15,6 +16,7 @@ export class Server {
     this.paths = {
       auth: '/api/auth',
       categorias: '/api/categorias',
+      productos: '/api/productos',
       usuarios: '/api/usuarios',
     };
 
@@ -46,6 +48,7 @@ export class Server {
   routes() {
     this.app.use(this.paths.auth, authRoutes);
     this.app.use(this.paths.categorias, categoryRoutes);
+    this.app.use(this.paths.productos, productRoutes);
     this.app.use(this.paths.usuarios, userRoutes);
   }
 
